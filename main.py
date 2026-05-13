@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect
 from data import db_session
 from data.users import User
 from forms.user import RegisterForm
+from forms.Login import LoginForm
 
 
 app = Flask(__name__)
@@ -20,6 +21,17 @@ def register():
 
         session = db_session.create_session()
 
+        existing_user = session.query(User).filter(
+            User.name == form.name.data
+        ).first()
+
+        if existing_user:
+            return render_template(
+                'register.html',
+                form=form,
+                message='Пользователь уже существует'
+            )
+
         user = User()
         user.name = form.name.data
         user.about = 'Новый пользователь'
@@ -32,6 +44,36 @@ def register():
         return redirect('/')
 
     return render_template('register.html', form=form)
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+
+    if form.validate_on_submit():
+
+        session = db_session.create_session()
+
+        user = session.query(User).filter(
+            User.name == form.name.data
+        ).first()
+
+        if not user:
+            return render_template(
+                'login.html',
+                form=form,
+                message='Пользователь не найден'
+            )
+
+        if not user.check_password(form.password.data):
+            return render_template(
+                'login.html',
+                form=form,
+                message='Неверный пароль'
+            )
+
+        return redirect('/')
+
+    return render_template('login.html', form=form)
 
 def main():
     # создание базы данных
