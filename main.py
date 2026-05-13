@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, render_template
 from data import db_session
 from data.users import User
 from forms.user import RegisterForm
@@ -15,11 +15,7 @@ app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 @app.route('/')
 @app.route('/index')
 def index():
-
-    if current_user.is_authenticated:
-        return f'Привет, {current_user.name}'
-
-    return 'Вы не вошли'
+    return render_template('index.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
