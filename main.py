@@ -3,12 +3,13 @@ from data import db_session
 from data.users import User
 from forms.user import RegisterForm
 from forms.Login import LoginForm
-from flask_login import LoginManager, login_user, current_user
+from flask_login import LoginManager, login_user, current_user, logout_user
 
 
 app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.init_app(app)
+login_manager.login_view = 'login'
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 
 @app.route('/')
@@ -83,6 +84,17 @@ def login():
         return redirect('/')
 
     return render_template('login.html', form=form)
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect('/')
+
+@app.route('/profile')
+def profile():
+    if not current_user.is_authenticated:
+        return redirect('/')
+    return 'Секретная страница'
 
 @login_manager.user_loader
 def load_user(user_id):
