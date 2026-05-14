@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}
+Поиск пользователей
+{% endblock %}
+
+{% block content %}
+
+<h1>Поиск пользователей</h1>
+
+<form method="post">
+
+    {{ form.hidden_tag() }}
+
+    <p>
+        {{ form.name.label }}<br>
+        {{ form.name() }}
+    </p>
+
+    <p>
+        {{ form.submit() }}
+    </p>
+
+</form>
+
+<hr>
+
+{% if users %}
+
+    <h2>Найденные пользователи:</h2>
+
+    {% for user in users %}
+
+        <div>
+
+            <p>
+                <b>{{ user.name }}</b>
+            </p>
+
+            <p>
+                {{ user.about }}
+            </p>
+
+            <a href="/chat/{{ user.id }}">Написать сообщение</a>
+
+        </div>
+
+        <hr>
+
+    {% endfor %}
+
+{% endif %}
+
+{% endblock %}

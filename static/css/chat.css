@@ -1,0 +1,42 @@
+.chat-box {
+    height: 400px;
+
+    overflow-y: scroll;
+
+    border: 1px solid black;
+
+    padding: 10px;
+
+    margin-bottom: 20px;
+}
+
+
+.message {
+    padding: 10px;
+
+    margin-bottom: 10px;
+
+    border-radius: 10px;
+
+    background-color: #eeeeee;
+
+    max-width: 70%;
+
+    word-wrap: break-word;
+
+    overflow-wrap: break-word;
+}
+
+
+.my-message {
+    margin-left: auto;
+
+    background-color: #cfe9ff;
+}
+
+
+.other-message {
+    margin-right: auto;
+
+    background-color: #eeeeee;
+}

@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
 
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/chat.css') }}">
+
     <title>
         {% block title %}
         Flask Chat
@@ -17,6 +20,10 @@
     <a href="/">Главная</a>
 
     {% if current_user.is_authenticated %}
+
+        <a href="/search">Поиск пользователей</a>
+
+        <a href="/dialogs">Чаты</a>
 
         <span>Пользователь: {{ current_user.name }}</span>
 

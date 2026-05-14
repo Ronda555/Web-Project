@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}
+Чат
+{% endblock %}
+
+{% block content %}
+
+<h2>Чат с {{ receiver.name }}</h2>
+
+<div class="chat-box">
+
+    {% for msg in messages %}
+
+        {% if msg.sender_id == current_user.id %}
+
+            <div class="message my-message">
+
+                <b>Вы:</b><br>
+
+                {{ msg.text }}
+
+            </div>
+
+        {% else %}
+
+            <div class="message other-message">
+
+                <b>{{ receiver.name }}:</b><br>
+
+                {{ msg.text }}
+
+            </div>
+
+        {% endif %}
+
+    {% endfor %}
+
+</div>
+
+<hr>
+
+<form method="post">
+
+    <input type="text" name="text" placeholder="Сообщение">
+    <button type="submit">Отправить</button>
+
+</form>
+
+{% endblock %}

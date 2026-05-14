@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}
+Диалоги
+{% endblock %}
+
+{% block content %}
+
+<h1>Ваши чаты</h1>
+
+{% if users %}
+
+    {% for user in users %}
+
+        <div>
+
+            <h3>{{ user.name }}</h3>
+
+            <p>{{ user.about }}</p>
+
+            <a href="/chat/{{ user.id }}">
+                Открыть чат
+            </a>
+
+        </div>
+
+        <hr>
+
+    {% endfor %}
+
+{% else %}
+
+    <p>У вас пока нет чатов</p>
+
+{% endif %}
+
+{% endblock %}
